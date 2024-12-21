@@ -1,8 +1,13 @@
 <resources>
     <string name="app_name">Aplicacion Financiera V2</string>
-    <string name="Transferir_Dinero">Transferir Dinero</string>
-    <string name="Cambiar_Divisas">Cambiar Divisas</string>
-    <string name="Historial">Historial De Transacciones</string>
-    <string name="Safishiva">Safijiiva Bank</string>
+    <string name="usario">Usuario</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="registro">Registrate</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="transferir_Dinero">Transferir Dinero</string>
+    <string name="cambiar_Divisas">Cambiar Divisas</string>
+    <string name="historial">Historial De Transacciones</string>
+    <string name="safishiva">Safijiiva Bank</string>
+    <string name="saldo">Saldo</string>
 
 </resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="btnRegister" type="id" />
+    <item name="etConfirmPassword" type="id" />
+    <item name="tvConfirmPassword" type="id" />
+    <item name="tvPassword" type="id" />
+    <item name="tvCedula" type="id" />
+    <item name="tvTelefono" type="id" />
+    <item name="tvNombre" type="id" />
+</resources>
