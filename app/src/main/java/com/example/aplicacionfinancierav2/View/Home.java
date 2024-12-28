@@ -34,14 +34,14 @@ public class Home extends AppCompatActivity implements ViewMain {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        presenter = new HomePresenter(this, new ModelImpl());
-        presenter.onLoadData();
+        //presenter = new HomePresenter(this, new ModelImpl());
+        // presenter.onLoadData();
 
         tv1 = findViewById(R.id.tvSaldo);
     }
 
     public void traerDelTextoDelModelo(View view){
-        presenter.getText();
+
     }
 
 

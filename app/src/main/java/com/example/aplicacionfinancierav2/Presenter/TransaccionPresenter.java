@@ -4,17 +4,7 @@ import com.example.aplicacionfinancierav2.Interfaces.PresenterMain;
 
 public class TransaccionPresenter implements PresenterMain {
     @Override
-    public void getText() {
-
-    }
-
-    @Override
-    public void onLoadData() {
-
-    }
-
-    @Override
-    public void onDestroy() {
+    public void saveUser(String name, String identification, String email, String phone, String password) {
 
     }
 }

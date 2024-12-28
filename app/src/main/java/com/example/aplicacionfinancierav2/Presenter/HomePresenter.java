@@ -14,22 +14,9 @@ public class HomePresenter implements PresenterMain {
         this.view = view;
         this.model = model;
     }
-    @Override
-    public void getText() {
-
-        String mensaje = model.getStrings();
-
-        view.showData(mensaje);
-
-    }
 
     @Override
-    public void onLoadData() {
-
-    }
-
-    @Override
-    public void onDestroy() {
+    public void saveUser(String name, String identification, String email, String phone, String password) {
 
     }
 }

@@ -16,37 +16,8 @@ public class WelcomePresenter implements PresenterMain {
         this.view = view;
         this.model = model;
     }
-
-
-
     @Override
-    public void getText() {
-
-    }
-
-    @Override
-    public void onLoadData() {
-        view.showLoading();
-        model.getData(new ModelMain.OnDataLoadedCallback() {
-
-            @Override
-            public void onSuccess(String data) {
-
-            }
-
-            @Override
-            public void onFailure(String error) {
-                view.hideLoading();
-                view.showError("No se pudo rey");
-            }
-        });
-
-    }
-
-    @Override
-    public void onDestroy() {
-
-        view = null;
+    public void saveUser(String name, String identification, String email, String phone, String password) {
 
     }
 }

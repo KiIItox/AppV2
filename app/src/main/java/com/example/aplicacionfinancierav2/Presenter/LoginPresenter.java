@@ -17,17 +17,7 @@ public class LoginPresenter implements PresenterMain {
     }
 
     @Override
-    public void getText() {
-
-    }
-
-    @Override
-    public void onLoadData() {
-
-    }
-
-    @Override
-    public void onDestroy() {
+    public void saveUser(String name, String identification, String email, String phone, String password) {
 
     }
 }

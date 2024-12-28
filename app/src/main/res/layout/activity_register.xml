@@ -191,6 +191,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/black"
+        android:onClick="RegisterUsers"
         android:text="Registrar"
         android:textColor="@color/white"
         android:textSize="16sp"
@@ -201,10 +202,11 @@
     <!-- Botón Regresar -->
     <ImageView
         android:id="@+id/btnBack"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:onClick="back"
         android:src="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

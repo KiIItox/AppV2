@@ -34,8 +34,9 @@ public class Login extends AppCompatActivity implements ViewMain {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        presenter = new LoginPresenter(this, new ModelImpl());
-        presenter.onLoadData();
+
+        //presenter = new LoginPresenter(this, new ModelImpl());
+        // presenter.onLoadData();
 
 
         // ID de interacciones
