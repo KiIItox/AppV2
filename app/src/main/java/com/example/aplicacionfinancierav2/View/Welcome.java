@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import com.example.aplicacionfinancierav2.Interfaces.ModelMain;
 import com.example.aplicacionfinancierav2.Interfaces.PresenterMain;
 import com.example.aplicacionfinancierav2.Interfaces.ViewMain;
 import com.example.aplicacionfinancierav2.Model.ModelImpl;
+import com.example.aplicacionfinancierav2.Model.UserDB;
 import com.example.aplicacionfinancierav2.Presenter.LoginPresenter;
 import com.example.aplicacionfinancierav2.Presenter.WelcomePresenter;
 import com.example.aplicacionfinancierav2.R;
@@ -50,6 +52,7 @@ public class Welcome extends AppCompatActivity implements ViewMain {
     }
 
 
+
     @Override
     public void showLoading() {
 
@@ -67,6 +70,10 @@ public class Welcome extends AppCompatActivity implements ViewMain {
 
     @Override
     public void showError(String error) {
+
+    }
+    @Override
+    public void showFieldError(String field, String error) {
 
     }
 }

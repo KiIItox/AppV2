@@ -5,12 +5,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 import com.example.aplicacionfinancierav2.Interfaces.ModelMain;
+import com.example.aplicacionfinancierav2.Interfaces.PresenterMain;
 
-public class UserDB extends SQLiteOpenHelper{
+import java.sql.Connection;
+
+public class UserDB extends SQLiteOpenHelper implements ModelMain {
 
     private static final String DATABASE_NAME = "users.db";
     private static final int DATABASE_VERSION = 1;
@@ -23,9 +27,11 @@ public class UserDB extends SQLiteOpenHelper{
     private static final String COLUMN_PASSWORD = "password";
 
 
+
     public UserDB(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase dbUser) {
@@ -62,7 +68,8 @@ public class UserDB extends SQLiteOpenHelper{
 
     //   CREATE   //
 
-    public long insertUser (String name, String email, String identification, String phone, String password){
+    @Override
+    public void insertUser(String name, String identification, String email, String phone, String password, String confirmPassword) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, name);
@@ -70,8 +77,9 @@ public class UserDB extends SQLiteOpenHelper{
         values.put(COLUMN_EMAIL, email);
         values.put(COLUMN_PHONE, phone);
         values.put(COLUMN_PASSWORD, password);
-        return db.insert(TABLE_NAME, null ,values);
+        db.insert(TABLE_NAME, null ,values);
     }
+
 
     //READ (All Users)//
 
@@ -129,4 +137,36 @@ public class UserDB extends SQLiteOpenHelper{
 
         );
     }
+
+
+    //Verificar que el usuario ya existe.
+
+    public boolean doesUserExistByEmail(String email) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT 1 FROM " + TABLE_NAME + " WHERE " + COLUMN_EMAIL + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{email});
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+        return exists;
+
+    }
+    public boolean doesUserExistIdentification(String identification) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT 1 FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{identification});
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+        return exists;
+    }
+    public boolean doesUserExistByPhone(String phone) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT 1 FROM " + TABLE_NAME + " WHERE " + COLUMN_PHONE + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{phone});
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+        return exists;
+    }
+
+
+
 }

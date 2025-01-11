@@ -17,15 +17,18 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.aplicacionfinancierav2.Interfaces.PresenterMain;
 import com.example.aplicacionfinancierav2.Interfaces.ViewMain;
 import com.example.aplicacionfinancierav2.Model.ModelImpl;
+import com.example.aplicacionfinancierav2.Model.UserDB;
 import com.example.aplicacionfinancierav2.Presenter.RegisterPresenter;
 import com.example.aplicacionfinancierav2.R;
 
 public class Register extends AppCompatActivity implements ViewMain {
 
     PresenterMain presenter;
+    RegisterPresenter presenterActivity;
     private EditText name, id, phone, password, cPassword, email;
     private String inputName, inputPhone, inputPassword, inputConfirmPassword, inputEmail, inputId;
     private Button btnRegistro, btnRegresar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,8 @@ public class Register extends AppCompatActivity implements ViewMain {
         });
 
         presenter = new RegisterPresenter(this, this);
+
+        presenterActivity = new RegisterPresenter(this,this);
 
         name = findViewById(R.id.etUserName);
         id = findViewById(R.id.etId);
@@ -57,7 +62,8 @@ public class Register extends AppCompatActivity implements ViewMain {
         inputPhone = phone.getText().toString();
         inputPassword = password.getText().toString();
         inputConfirmPassword = cPassword.getText().toString();
-        presenter.saveUser(inputName,inputId,inputEmail,inputPhone,inputPassword);
+        presenterActivity.saveUser(inputName,inputId,inputEmail,inputPhone,inputPassword,
+                inputConfirmPassword);
 
     }
     public void back(View view){
@@ -84,5 +90,31 @@ public class Register extends AppCompatActivity implements ViewMain {
     @Override
     public void showError(String error) {
         Toast.makeText(this,error,Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public void showFieldError(String field, String error) {
+
+        switch (field){
+            case "name":
+                name.setError(error);
+                break;
+            case "phone":
+                phone.setError(error);
+                break;
+            case "email":
+                email.setError(error);
+                break;
+            case "identification":
+                id.setError(error);
+                break;
+            case "password":
+                password.setError(error);
+                break;
+            case "confirmpassword":
+                cPassword.setError(error);
+                break;
+
+        }
+
     }
 }

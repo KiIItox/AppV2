@@ -17,7 +17,7 @@ public class WelcomePresenter implements PresenterMain {
         this.model = model;
     }
     @Override
-    public void saveUser(String name, String identification, String email, String phone, String password) {
+    public void saveUser(String name, String identification, String email, String phone, String password,String confirmPassword) {
 
     }
 }

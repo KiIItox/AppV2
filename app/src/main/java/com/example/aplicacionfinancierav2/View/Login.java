@@ -75,4 +75,8 @@ public class Login extends AppCompatActivity implements ViewMain {
     public void showError(String error) {
 
     }
+    @Override
+    public void showFieldError(String field, String error) {
+
+    }
 }

@@ -6,4 +6,5 @@ public interface ViewMain {
     void hideLoading();
     void showData(String data);
     void showError(String errorMessage);
+    void showFieldError(String field, String error);
 }

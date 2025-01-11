@@ -15,10 +15,13 @@ public class ModelImpl implements ModelMain {
         this.databaseHelper = new UserDB(c);
     }
 
+    public UserDB getDatabaseHelper() {
+        return databaseHelper;
+    }
+
     @Override
     public void insertUser(String name, String identification, String email, String phone,
-                           String password) {
-
+                           String password, String confirmPassword) {
 
     }
 }
