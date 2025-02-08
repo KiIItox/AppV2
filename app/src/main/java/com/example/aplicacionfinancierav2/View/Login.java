@@ -21,8 +21,9 @@ public class Login extends AppCompatActivity implements ViewMain {
 
     LoginPresenter presenter;
 
-    private EditText etUsuario, etPassword;
-    private Button btnIniciar, btnRegistro;
+    private EditText etPhone, etPassword;
+    private String inputName, inputPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,37 +36,39 @@ public class Login extends AppCompatActivity implements ViewMain {
             return insets;
         });
 
-        //presenter = new LoginPresenter(this, new ModelImpl());
-        // presenter.onLoadData();
-
-
+        presenter = new LoginPresenter(this, this);
         // ID de interacciones
-
-        etUsuario = findViewById(R.id.etUser);
+        etPhone = findViewById(R.id.etUser);
         etPassword = findViewById(R.id.etPassword);
-
-        btnIniciar = findViewById(R.id.btnLogin);
-        btnRegistro = findViewById(R.id.btnRegisterLogin);
-
-
     }
 
-    public void registro(View view){
-        Intent intent = new Intent(Login.this, Register.class);
+
+    public void login (View view){
+        inputName = etPhone.getText().toString();
+        inputPassword = etPassword.getText().toString();
+        presenter.validateLogin(inputName,inputPassword);
+    }
+
+    public void register(View view){
+        Intent intent = new Intent(this,Register.class);
         startActivity(intent);
         finish();
     }
 
     @Override
-    public void showLoading() {
+    public void intentTo() {
+        String phone = etPhone.getText().toString();
+        Intent intent = new Intent(this,Home.class);
+        intent.putExtra("phone",phone);
+        startActivity(intent);
+        finish();
 
     }
 
     @Override
-    public void hideLoading() {
+    public void showMoney(double money) {
 
     }
-
     @Override
     public void showData(String data) {
 
@@ -77,6 +80,13 @@ public class Login extends AppCompatActivity implements ViewMain {
     }
     @Override
     public void showFieldError(String field, String error) {
-
+        switch (field){
+            case "phone":
+                etPhone.setError(error);
+                break;
+            case "password":
+                etPassword.setError(error);
+                break;
+        }
     }
 }

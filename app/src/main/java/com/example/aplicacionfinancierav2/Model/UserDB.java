@@ -5,14 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 import com.example.aplicacionfinancierav2.Interfaces.ModelMain;
-import com.example.aplicacionfinancierav2.Interfaces.PresenterMain;
-
-import java.sql.Connection;
 
 public class UserDB extends SQLiteOpenHelper implements ModelMain {
 
@@ -25,7 +21,7 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain {
     private static final String COLUMN_PHONE = "phone";
     private static final String COLUMN_IDENTIFICATION = "identification";
     private static final String COLUMN_PASSWORD = "password";
-
+    private static final String COLUMN_SALDO = "saldo";
 
 
     public UserDB(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
@@ -43,8 +39,9 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain {
                         COLUMN_IDENTIFICATION + " TEXT, " +
                         COLUMN_EMAIL + " TEXT, " +
                         COLUMN_PHONE + " TEXT, " +
-                        COLUMN_PASSWORD + " TEXT )";
-                        ;
+                        COLUMN_PASSWORD + " TEXT, " +
+                        COLUMN_SALDO + " REAL DEFAULT 3000000"
+                        +" )";
         dbUser.execSQL(createTable);
 
     }
@@ -52,7 +49,6 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain {
     public UserDB(Context context) {
         super(context, DATABASE_NAME, null , DATABASE_VERSION);
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
@@ -61,15 +57,14 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain {
 
     }
 
-
     //                                  CRUD                           //
-
-
 
     //   CREATE   //
 
     @Override
-    public void insertUser(String name, String identification, String email, String phone, String password, String confirmPassword) {
+    public void insertUser(String name, String identification, String email, String phone,
+                           String password, String confirmPassword) {
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME, name);
@@ -80,8 +75,35 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain {
         db.insert(TABLE_NAME, null ,values);
     }
 
+    @Override
+    public void insertVoucher(String nameReceiver, String nameEmiter, String phoneReceiber,
+                              String phoneEmiter, String coin, int amount, String description, String date) {
 
-    //READ (All Users)//
+    }
+
+    @Override
+    public double getMoney(String phone) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        double saldo = 0.0;
+        Cursor cursor = db.rawQuery("SELECT " + COLUMN_SALDO + " FROM " + TABLE_NAME + " WHERE "
+                + COLUMN_PHONE + " = ?", new String[]{phone});
+
+        if (cursor != null && cursor.moveToFirst()) {
+            saldo = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_SALDO));
+            cursor.close();
+        }
+        return saldo;
+    }
+
+    @Override
+    public void updateMoney(String phone, double newMoney) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_SALDO, newMoney);
+        db.update(TABLE_NAME, values, COLUMN_PHONE + " = ?", new String[]{phone});
+    }
+
+
 
     public Cursor getAllUsers(){
         SQLiteDatabase db = this.getReadableDatabase();
@@ -96,54 +118,14 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain {
         );
     }
 
-    //READ (by ID) //
 
-    public Cursor getUserById(long id) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.query(
-                TABLE_NAME,
-                null,
-                COLUMN_ID + " = ?",
-                new String[]{String.valueOf(id)},
-                null,
-                null,
-                null
-        );
-    }
-
-    // UPDATE //
-
-    public int upDateUser (long id, String name, String email, String identification, String phone, String password){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_NAME, name);
-        values.put(COLUMN_IDENTIFICATION, identification);
-        values.put(COLUMN_EMAIL, email);
-        values.put(COLUMN_PHONE, phone);
-        values.put(COLUMN_PASSWORD, password);
-        return db.update(TABLE_NAME,values,COLUMN_ID + " = ?",
-                new String[]{String.valueOf(id)}
-        );
-    }
-
-    // DELETE //
-
-
-
-    public int deleteUser (long id){
-        SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_NAME,COLUMN_ID + " = ?",
-                new String[]{String.valueOf(id)}
-
-        );
-    }
 
 
     //Verificar que el usuario ya existe.
 
     public boolean doesUserExistByEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT 1 FROM " + TABLE_NAME + " WHERE " + COLUMN_EMAIL + " = ?";
+        String query = buildExistenceQuery(COLUMN_EMAIL);
         Cursor cursor = db.rawQuery(query, new String[]{email});
         boolean exists = cursor.moveToFirst();
         cursor.close();
@@ -152,7 +134,7 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain {
     }
     public boolean doesUserExistIdentification(String identification) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT 1 FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = ?";
+        String query = buildExistenceQuery(COLUMN_IDENTIFICATION);
         Cursor cursor = db.rawQuery(query, new String[]{identification});
         boolean exists = cursor.moveToFirst();
         cursor.close();
@@ -160,13 +142,47 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain {
     }
     public boolean doesUserExistByPhone(String phone) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "SELECT 1 FROM " + TABLE_NAME + " WHERE " + COLUMN_PHONE + " = ?";
+        String query = buildExistenceQuery(COLUMN_PHONE);
         Cursor cursor = db.rawQuery(query, new String[]{phone});
         boolean exists = cursor.moveToFirst();
         cursor.close();
         return exists;
     }
 
+    // verificar si existe el usuario
+
+    public boolean userExistByPhone (String phone){
+        String query = buildExistenceQuery(COLUMN_PHONE);
+        return  checkRecordExists(query,new String[]{phone});
+    }
+
+    public boolean isPasswordValid (String password){
+        String query = buildExistenceQuery(COLUMN_PASSWORD);
+        return  checkRecordExists(query,new String[]{password});
+    }
+
+
+    //Realizar consultas SQL
+    private String buildExistenceQuery(String columnName) {
+        return "SELECT 1 FROM " + TABLE_NAME + " WHERE " + columnName + " = ?";
+    }
+
+    //Ejecutar consulta para verificar si hay resultados en las cosultas
+
+    private boolean checkRecordExists(String query, String[] selectionArgs) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = null;
+        Boolean exists = false;
+        try {
+            cursor = db.rawQuery(query, selectionArgs);
+            exists = cursor.moveToFirst();
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Libera recursos
+            }
+        }
+        return exists;
+    }
 
 
 }

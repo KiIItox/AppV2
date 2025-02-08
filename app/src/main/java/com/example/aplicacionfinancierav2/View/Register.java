@@ -23,11 +23,11 @@ import com.example.aplicacionfinancierav2.R;
 
 public class Register extends AppCompatActivity implements ViewMain {
 
-    PresenterMain presenter;
+
     RegisterPresenter presenterActivity;
     private EditText name, id, phone, password, cPassword, email;
     private String inputName, inputPhone, inputPassword, inputConfirmPassword, inputEmail, inputId;
-    private Button btnRegistro, btnRegresar;
+    private ViewMain view;
 
 
     @Override
@@ -41,8 +41,6 @@ public class Register extends AppCompatActivity implements ViewMain {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
-        presenter = new RegisterPresenter(this, this);
 
         presenterActivity = new RegisterPresenter(this,this);
 
@@ -72,15 +70,6 @@ public class Register extends AppCompatActivity implements ViewMain {
         finish();
     }
 
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
 
     @Override
     public void showData(String data) {
@@ -115,6 +104,15 @@ public class Register extends AppCompatActivity implements ViewMain {
                 break;
 
         }
+
+    }
+    @Override
+    public void intentTo() {
+
+    }
+
+    @Override
+    public void showMoney(double money) {
 
     }
 }

@@ -33,16 +33,9 @@ public class RegisterPresenter implements PresenterMain {
 
         if (validateFields(name, identification, email, phone, password, confirmPassword)) {
 
-            if(bdModel!= null){
                 bdModel.insertUser(name, identification, email, phone, password,confirmPassword);
 
                 view.showData("Usuario registrado Exitosamente");
-
-
-            }else {
-                view.showError("Tu BD es nula");
-            }
-
 
         } else {
 
@@ -86,10 +79,11 @@ public class RegisterPresenter implements PresenterMain {
             view.showFieldError("identification", "Ingresa una identificacion valida.");
             return false;
         }
-        if (!bdModel.getDatabaseHelper().doesUserExistIdentification(identification)) {
+        if (bdModel.getDatabaseHelper().doesUserExistIdentification(identification)) {
             view.showFieldError("identification", "Ya existe un usuario registrado con este numero de cedula.");
             return false;
-        }else {
+        }
+        else {
             view.showFieldError("identification", null);
             return true;
         }
@@ -104,7 +98,7 @@ public class RegisterPresenter implements PresenterMain {
             view.showFieldError("email", "Ingresa una dirección de correo electronica valida.");
             return false;
         }
-        if (!bdModel.getDatabaseHelper().doesUserExistByEmail(email)) {
+        if (bdModel.getDatabaseHelper().doesUserExistByEmail(email)) {
             view.showFieldError("email", "Ya existe un usuario registrado con este correo.");
             return false;
         } else {
@@ -123,7 +117,7 @@ public class RegisterPresenter implements PresenterMain {
             view.showFieldError("phone", "Digita un numero telefonico valido.");
             return false;
         }
-        if (!bdModel.getDatabaseHelper().doesUserExistByPhone(phone)) {
+        if (bdModel.getDatabaseHelper().doesUserExistByPhone(phone)) {
             view.showFieldError("phone", "Ya existe un usuario registrado con este numero de telefono.");
             return false;
         }

@@ -62,6 +62,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="287dp"
+
         android:text="Teléfono"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -74,6 +75,7 @@
         android:layout_width="325dp"
         android:layout_height="50dp"
         android:hint="Ingrese su teléfono"
+        android:maxLength="10"
         android:inputType="phone"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -128,6 +130,7 @@
         android:layout_width="325dp"
         android:layout_height="50dp"
         android:hint="Ingrese su cédula"
+        android:maxLength="10"
         android:inputType="number"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"

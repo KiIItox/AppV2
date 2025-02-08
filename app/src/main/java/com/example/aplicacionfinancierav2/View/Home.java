@@ -1,5 +1,6 @@
 package com.example.aplicacionfinancierav2.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -14,14 +15,17 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.aplicacionfinancierav2.Interfaces.PresenterMain;
 import com.example.aplicacionfinancierav2.Interfaces.ViewMain;
 import com.example.aplicacionfinancierav2.Model.ModelImpl;
+import com.example.aplicacionfinancierav2.Model.SharedPrefHelper;
 import com.example.aplicacionfinancierav2.Presenter.HomePresenter;
+import com.example.aplicacionfinancierav2.Presenter.LoginPresenter;
 import com.example.aplicacionfinancierav2.Presenter.WelcomePresenter;
 import com.example.aplicacionfinancierav2.R;
 
 public class Home extends AppCompatActivity implements ViewMain {
 
-    PresenterMain presenter;
+    HomePresenter presenter;
     private TextView tv1;
+    String phone, userPhone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,26 +38,23 @@ public class Home extends AppCompatActivity implements ViewMain {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        //presenter = new HomePresenter(this, new ModelImpl());
-        // presenter.onLoadData();
 
         tv1 = findViewById(R.id.tvSaldo);
+        presenter = new HomePresenter(this, this);
+        userPhone = getIntent().getStringExtra("phone");
+        if(userPhone!=null){
+            presenter.saveUserPhone(userPhone);
+        }
+        phone = SharedPrefHelper.getPhone(this);
+        presenter.loadMoney(phone);
     }
 
-    public void traerDelTextoDelModelo(View view){
-
+    public void sendMoneyView(View view){
+        Intent intent = new Intent(this,Transaccion.class);
+        startActivity(intent);
+        finish();
     }
 
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
 
     @Override
     public void showData(String data) {
@@ -69,5 +70,15 @@ public class Home extends AppCompatActivity implements ViewMain {
     @Override
     public void showFieldError(String field, String error) {
 
+    }
+
+    @Override
+    public void intentTo() {
+
+    }
+
+    @Override
+    public void showMoney(double money) {
+        tv1.setText("Saldo disponible: $" + money);
     }
 }

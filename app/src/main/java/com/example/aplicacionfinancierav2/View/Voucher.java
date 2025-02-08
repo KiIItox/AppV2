@@ -28,16 +28,6 @@ public class Voucher extends AppCompatActivity implements ViewMain {
     }
 
     @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
     public void showData(String data) {
 
     }
@@ -48,6 +38,15 @@ public class Voucher extends AppCompatActivity implements ViewMain {
     }
     @Override
     public void showFieldError(String field, String error) {
+
+    }
+    @Override
+    public void intentTo() {
+
+    }
+
+    @Override
+    public void showMoney(double money) {
 
     }
 }
