@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.example.aplicacionfinancierav2.Interfaces.ModelMain;
 
-public class UserDB extends SQLiteOpenHelper implements ModelMain {
+public class UserDB extends SQLiteOpenHelper implements ModelMain,ModelMain.transacion {
 
     private static final String DATABASE_NAME = "users.db";
     private static final int DATABASE_VERSION = 1;
@@ -80,19 +80,60 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain {
                               String phoneEmiter, String coin, int amount, String description, String date) {
 
     }
+    @Override
+    public void sendAmountDb(String phone, double amount, String description, String phoneUserIssuer) {
+        this.transaction(amount,phone,phoneUserIssuer);
+    }
+
+
+    public boolean transaction(double amount, String phone, String phoneIssuer){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
+        double originAmount = getAmountByPhoneUser(phoneIssuer);
+        this.substracMoney(originAmount,amount);
+
+
+        String querySubstrac = "UPDATE " + TABLE_NAME + " SET " + COLUMN_SALDO + " = " + COLUMN_SALDO + " - ? " +
+                " WHERE " + COLUMN_PHONE + " = ?";
+        db.execSQL(querySubstrac, new Object[]{amount, phoneIssuer});
+
+        String queryAdd = "UPDATE " + TABLE_NAME + " SET " + COLUMN_SALDO + " = " + COLUMN_SALDO + " + ? " +
+                " WHERE " + COLUMN_PHONE + " = ?";
+        db.execSQL(queryAdd, new Object[]{amount, phone});
+
+        db.setTransactionSuccessful();
+        System.out.println("###############");
+        System.out.println("###############");
+        System.out.println("###############");
+        System.out.println("Finalizo la transaccion");
+        System.out.println("###############");
+        System.out.println("###############");
+        System.out.println("###############");
+
+        return true;
+    }
+
+    public boolean substracMoney(double amountOrigin, double amount){
+        SQLiteDatabase db = this.getWritableDatabase();
+        if (amountOrigin < amount){
+            db.endTransaction();
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public double getMoney(String phone) {
         SQLiteDatabase db = this.getReadableDatabase();
-        double saldo = 0.0;
+        double amount = 0.0;
         Cursor cursor = db.rawQuery("SELECT " + COLUMN_SALDO + " FROM " + TABLE_NAME + " WHERE "
                 + COLUMN_PHONE + " = ?", new String[]{phone});
 
         if (cursor != null && cursor.moveToFirst()) {
-            saldo = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_SALDO));
+            amount = cursor.getDouble(cursor.getColumnIndexOrThrow(COLUMN_SALDO));
             cursor.close();
         }
-        return saldo;
+        return amount;
     }
 
     @Override
@@ -117,7 +158,18 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain {
                 COLUMN_ID + " ASC"
         );
     }
+    //Obtener Monto por numero de telefono
 
+    public double getAmountByPhoneUser(String phone) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = buildExistenceQuery(COLUMN_SALDO);
+        Cursor cursor = db.rawQuery(query, new String[]{phone});
+        double saldo = 0.0;
+        saldo = cursor.getDouble(0);
+        cursor.close();
+        db.close();
+        return saldo;
+    }
 
 
 
@@ -130,7 +182,6 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain {
         boolean exists = cursor.moveToFirst();
         cursor.close();
         return exists;
-
     }
     public boolean doesUserExistIdentification(String identification) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -183,6 +234,7 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain {
         }
         return exists;
     }
+
 
 
 }

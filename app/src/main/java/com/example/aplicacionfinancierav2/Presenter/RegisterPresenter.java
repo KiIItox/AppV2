@@ -16,9 +16,9 @@ import java.sql.SQLOutput;
 
 public class RegisterPresenter implements PresenterMain {
 
-    private ViewMain view;
-    private ModelMain model;
-    private ModelImpl bdModel;
+        private ViewMain view;
+        private ModelMain model;
+        private ModelImpl bdModel;
 
 
     public RegisterPresenter(ViewMain view, Context c) {

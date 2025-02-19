@@ -1,7 +1,6 @@
 package com.example.aplicacionfinancierav2.Model;
 
 import android.content.Context;
-import android.view.View;
 
 import com.example.aplicacionfinancierav2.Interfaces.ModelMain;
 
@@ -14,6 +13,9 @@ public class ModelImpl implements ModelMain {
     public ModelImpl(Context c) {
         this.databaseHelper = new UserDB(c);
         this.databaseHelperVoucher = new VoucherDB(c);
+    }
+    public void sendAmountDb(String phone, double amount, String description, String phoneUserIssuer) {
+        databaseHelper.sendAmountDb(phone,amount,description,phoneUserIssuer);
     }
 
     public UserDB getDatabaseHelper() {
@@ -44,4 +46,6 @@ public class ModelImpl implements ModelMain {
     public void updateMoney(String phone, double newMoney) {
         databaseHelper.updateMoney(phone, newMoney);
     }
+
+
 }

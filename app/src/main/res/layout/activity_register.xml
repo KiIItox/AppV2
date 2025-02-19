@@ -8,7 +8,7 @@
     android:padding="16dp"
     tools:context=".View.Register">
 
-    <!-- Título -->
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
@@ -22,9 +22,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Etiqueta Nombre -->
-
-    <!-- Campo Nombre -->
 
     <TextView
         android:id="@+id/tvNombre"
@@ -52,9 +49,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvNombre" />
 
-    <!-- Etiqueta Teléfono -->
 
-    <!-- Campo Teléfono -->
     <TextView
         android:id="@+id/tvTelefono"
         android:layout_width="62dp"
@@ -82,9 +77,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTelefono" />
 
-    <!-- Etiqueta Correo Electrónico -->
 
-    <!-- Campo Correo Electrónico -->
     <TextView
         android:id="@+id/tvCorreo"
         android:layout_width="wrap_content"
@@ -111,7 +104,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvCorreo" />
 
-    <!-- Etiqueta Cédula -->
     <TextView
         android:id="@+id/tvCedula"
         android:layout_width="wrap_content"
@@ -124,7 +116,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etEmail" />
 
-    <!-- Campo Cédula -->
     <EditText
         android:id="@+id/etId"
         android:layout_width="325dp"
@@ -137,7 +128,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvCedula" />
 
-    <!-- Etiqueta Contraseña -->
     <TextView
         android:id="@+id/tvPassword"
         android:layout_width="wrap_content"
@@ -150,7 +140,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etId" />
 
-    <!-- Campo Contraseña -->
+
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="325dp"
@@ -162,7 +152,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvPassword" />
 
-    <!-- Etiqueta Confirmar Contraseña -->
+
     <TextView
         android:id="@+id/tvConfirmPassword"
         android:layout_width="wrap_content"
@@ -175,7 +165,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etPassword" />
 
-    <!-- Campo Confirmar Contraseña -->
+
     <EditText
         android:id="@+id/etConfirmPassword"
         android:layout_width="325dp"
@@ -187,7 +177,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvConfirmPassword" />
 
-    <!-- Botón Registro -->
+
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="325dp"
@@ -202,7 +192,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etConfirmPassword" />
 
-    <!-- Botón Regresar -->
+
     <ImageView
         android:id="@+id/btnBack"
         android:layout_width="50dp"

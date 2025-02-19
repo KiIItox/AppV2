@@ -27,7 +27,6 @@ public class Register extends AppCompatActivity implements ViewMain {
     RegisterPresenter presenterActivity;
     private EditText name, id, phone, password, cPassword, email;
     private String inputName, inputPhone, inputPassword, inputConfirmPassword, inputEmail, inputId;
-    private ViewMain view;
 
 
     @Override

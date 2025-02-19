@@ -3,6 +3,8 @@ package com.example.aplicacionfinancierav2.Model;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.aplicacionfinancierav2.Presenter.TransaccionPresenter;
+
 public class SharedPrefHelper {
     private static final String PREF_NAME = "users";
     private static final String KEY_PHONE = "phone";
@@ -16,6 +18,6 @@ public class SharedPrefHelper {
 
     public static String getPhone(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        return prefs.getString(KEY_PHONE, null);  // Devuelve null si no hay teléfono guardado
+        return prefs.getString(KEY_PHONE, null);
     }
 }

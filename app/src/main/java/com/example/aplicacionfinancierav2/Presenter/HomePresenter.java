@@ -24,6 +24,10 @@ public class HomePresenter implements PresenterMain {
         this.userDB = new UserDB(c);
         this.context = c;
     }
+
+    public void moneyIssuer(){
+
+    }
     public void saveUserPhone(String phone){
         if(context!= null){
             SharedPrefHelper.savePhone(context, phone);
@@ -31,7 +35,6 @@ public class HomePresenter implements PresenterMain {
         else {
             Log.e("HomePresenter","Context is null");
         }
-
     }
 
     public void loadMoney(String phone) {
@@ -39,7 +42,6 @@ public class HomePresenter implements PresenterMain {
         double money = model.getMoney(phone);
 
         view.showMoney(money);
-
     }
 
     public void updateCash(String phone, double newMoney){

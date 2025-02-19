@@ -62,6 +62,10 @@ public class Home extends AppCompatActivity implements ViewMain {
 
     }
 
+    public String getPhoneHelper(){
+        return phone;
+    }
+
     @Override
     public void showError(String error) {
 

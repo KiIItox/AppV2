@@ -5,4 +5,8 @@ public interface ModelMain {
     void insertVoucher(String nameReceiver, String nameEmiter, String phoneReceiber, String phoneEmiter, String coin, int amount, String description, String date);
     double getMoney(String phone);
     void updateMoney(String phone, double newMoney);
+
+    interface transacion{
+        void sendAmountDb(String phone, double amount, String description, String phoneUserIssuer);
+    }
 }
