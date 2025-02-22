@@ -10,6 +10,8 @@ import androidx.annotation.Nullable;
 
 import com.example.aplicacionfinancierav2.Interfaces.ModelMain;
 
+import java.sql.SQLOutput;
+
 public class UserDB extends SQLiteOpenHelper implements ModelMain,ModelMain.transacion {
 
     private static final String DATABASE_NAME = "users.db";
@@ -45,7 +47,6 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain,ModelMain.tran
         dbUser.execSQL(createTable);
 
     }
-
     public UserDB(Context context) {
         super(context, DATABASE_NAME, null , DATABASE_VERSION);
     }
@@ -82,42 +83,39 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain,ModelMain.tran
     }
     @Override
     public void sendAmountDb(String phone, double amount, String description, String phoneUserIssuer) {
-        this.transaction(amount,phone,phoneUserIssuer);
+        this.transaction(phone,amount,phoneUserIssuer);
     }
 
 
-    public boolean transaction(double amount, String phone, String phoneIssuer){
+    public boolean transaction(String phone, double amount, String phoneIssuer){
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction();
         double originAmount = getAmountByPhoneUser(phoneIssuer);
-        this.substracMoney(originAmount,amount);
-
-
-        String querySubstrac = "UPDATE " + TABLE_NAME + " SET " + COLUMN_SALDO + " = " + COLUMN_SALDO + " - ? " +
-                " WHERE " + COLUMN_PHONE + " = ?";
-        db.execSQL(querySubstrac, new Object[]{amount, phoneIssuer});
-
-        String queryAdd = "UPDATE " + TABLE_NAME + " SET " + COLUMN_SALDO + " = " + COLUMN_SALDO + " + ? " +
-                " WHERE " + COLUMN_PHONE + " = ?";
-        db.execSQL(queryAdd, new Object[]{amount, phone});
-
-        db.setTransactionSuccessful();
-        System.out.println("###############");
-        System.out.println("###############");
-        System.out.println("###############");
-        System.out.println("Finalizo la transaccion");
-        System.out.println("###############");
-        System.out.println("###############");
-        System.out.println("###############");
-
-        return true;
-    }
-
-    public boolean substracMoney(double amountOrigin, double amount){
-        SQLiteDatabase db = this.getWritableDatabase();
-        if (amountOrigin < amount){
+        System.out.println(originAmount);
+        if (originAmount < amount) {
+            System.out.println("El monto a enviar no puede superar tu saldo");
             db.endTransaction();
             return false;
+        } else {
+            try {
+                String querySubstrac = "UPDATE " + TABLE_NAME +
+                        " SET " + COLUMN_SALDO + " = " + COLUMN_SALDO + " - ? " +
+                        " WHERE " + COLUMN_PHONE + " = ?";
+                db.execSQL(querySubstrac, new Object[]{amount, phoneIssuer});
+
+                String queryAdd = "UPDATE " + TABLE_NAME +
+                        " SET " + COLUMN_SALDO + " = " + COLUMN_SALDO + " + ? " +
+                        " WHERE " + COLUMN_PHONE + " = ?";
+                db.execSQL(queryAdd, new Object[]{amount, phone});
+
+                db.setTransactionSuccessful();
+            } catch (Exception e) {
+                System.out.println("Error en la transacción: " + e.getMessage());
+                return false;
+            } finally {
+                db.endTransaction();
+                db.close();
+            }
         }
         return true;
     }
@@ -162,13 +160,16 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain,ModelMain.tran
 
     public double getAmountByPhoneUser(String phone) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = buildExistenceQuery(COLUMN_SALDO);
+        String query = buildValueQuery(COLUMN_SALDO);
         Cursor cursor = db.rawQuery(query, new String[]{phone});
-        double saldo = 0.0;
-        saldo = cursor.getDouble(0);
+        double amount = 0.0;
+
+        if (cursor.moveToFirst()) {
+            amount = cursor.getDouble(0);
+            System.out.println(amount);
+        }
         cursor.close();
-        db.close();
-        return saldo;
+        return amount;
     }
 
 
@@ -216,6 +217,11 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain,ModelMain.tran
     //Realizar consultas SQL
     private String buildExistenceQuery(String columnName) {
         return "SELECT 1 FROM " + TABLE_NAME + " WHERE " + columnName + " = ?";
+    }
+
+    //Consulta por telefono
+    private String buildValueQuery(String columnName) {
+        return "SELECT " + columnName + " FROM " + TABLE_NAME + " WHERE " + COLUMN_PHONE + " = ?";
     }
 
     //Ejecutar consulta para verificar si hay resultados en las cosultas

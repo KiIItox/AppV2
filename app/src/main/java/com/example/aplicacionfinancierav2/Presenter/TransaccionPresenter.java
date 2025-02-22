@@ -32,9 +32,15 @@ public class TransaccionPresenter implements PresenterMain, PresenterMain.transa
 
             phoneUserIssuer = SharedPrefHelper.getPhone(context);
 
+           /* System.out.println(phoneUserIssuer);
+            System.out.println(phone);
+            System.out.println(amount);
+            System.out.println(description);
+
+            */
             bdModel.sendAmountDb(phone, amount, description,phoneUserIssuer);
 
-            view.showData("Envio exitoso");
+            view.intentTo();
 
         } else {
 

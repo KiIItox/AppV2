@@ -1,10 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@android:color/white"
     tools:context=".View.Voucher">
 
+    <!-- Encabezado -->
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="325dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:text="Detalle del envio"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Mensaje de confirmación -->
+    <TextView
+        android:id="@+id/confirmationMessage"
+        android:layout_width="325dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="✔ Transferencia exitosa"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleText" />
+
+    <!-- Datos de la transacción -->
+
+    <TextView
+        android:id="@+id/fromLabel"
+        android:layout_width="325dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:text="Transfiriendo desde"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/confirmationMessage" />
+
+    <TextView
+        android:id="@+id/fromAccount"
+        android:layout_width="325dp"
+        android:layout_height="30dp"
+        android:text="Rindedario - 2010037586"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fromLabel" />
+
+    <TextView
+        android:id="@+id/toLabel"
+        android:layout_width="325dp"
+        android:layout_height="40dp"
+        android:text="A la cuenta Rindedario de"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fromAccount" />
+
+    <TextView
+        android:id="@+id/toAccount"
+        android:layout_width="325dp"
+        android:layout_height="40dp"
+        android:text="Eli Trigos"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toLabel" />
+
+    <TextView
+        android:id="@+id/amountLabel"
+        android:layout_width="325dp"
+        android:layout_height="40dp"
+        android:text="El valor de"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toAccount" />
+
+    <TextView
+        android:id="@+id/amountValue"
+        android:layout_width="325dp"
+        android:layout_height="40dp"
+        android:text="$5.000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/amountLabel" />
+
+    <TextView
+        android:id="@+id/conceptLabel"
+        android:layout_width="325dp"
+        android:layout_height="40dp"
+        android:text="Concepto"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/amountValue" />
+
+    <TextView
+        android:id="@+id/conceptValue"
+        android:layout_width="325dp"
+        android:layout_height="40dp"
+        android:text="Pago"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/conceptLabel" />
+
+    <!-- Botón de continuar -->
+    <Button
+        android:id="@+id/continueButton"
+        android:layout_width="325dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/black"
+        android:onClick="goToHome"
+        android:text="Regresar"
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/conceptValue" />
 </androidx.constraintlayout.widget.ConstraintLayout>
