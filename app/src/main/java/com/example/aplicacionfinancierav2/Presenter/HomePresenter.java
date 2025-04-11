@@ -1,7 +1,6 @@
 package com.example.aplicacionfinancierav2.Presenter;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.example.aplicacionfinancierav2.Interfaces.ModelMain;
@@ -25,9 +24,6 @@ public class HomePresenter implements PresenterMain {
         this.context = c;
     }
 
-    public void moneyIssuer(){
-
-    }
     public void saveUserPhone(String phone){
         if(context!= null){
             SharedPrefHelper.savePhone(context, phone);
@@ -37,16 +33,10 @@ public class HomePresenter implements PresenterMain {
         }
     }
 
+
     public void loadMoney(String phone) {
-
         double money = model.getMoney(phone);
-
         view.showMoney(money);
-    }
-
-    public void updateCash(String phone, double newMoney){
-        model.updateMoney(phone,newMoney);
-        view.showMoney(newMoney);
     }
     @Override
     public void saveUser(String name, String identification, String email, String phone, String password,String confirmPassword) {

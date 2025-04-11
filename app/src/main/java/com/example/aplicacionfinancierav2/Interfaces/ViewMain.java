@@ -7,4 +7,6 @@ public interface ViewMain {
     void showFieldError(String field, String error);
     void intentTo();
     void showMoney(double money);
+    void voucherData(String id, String phone, String phoneIssuer, String description, double amount);
+
 }

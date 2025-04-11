@@ -1,12 +1,14 @@
 package com.example.aplicacionfinancierav2.Presenter;
 
 import android.content.Context;
+import android.content.Intent;
 
 import com.example.aplicacionfinancierav2.Interfaces.ModelMain;
 import com.example.aplicacionfinancierav2.Interfaces.PresenterMain;
 import com.example.aplicacionfinancierav2.Interfaces.ViewMain;
 import com.example.aplicacionfinancierav2.Model.ModelImpl;
 import com.example.aplicacionfinancierav2.Model.SharedPrefHelper;
+import com.example.aplicacionfinancierav2.View.Voucher;
 
 
 public class TransaccionPresenter implements PresenterMain, PresenterMain.transaccion {
@@ -17,42 +19,35 @@ public class TransaccionPresenter implements PresenterMain, PresenterMain.transa
     private Context context;
     private String phoneUserIssuer;
 
-
     public TransaccionPresenter(ViewMain view, Context c) {
         this.view = view;
         this.model = new ModelImpl(c);
         this.bdModel = new ModelImpl(c);
         this.context = c;
-
     }
 
     @Override
     public void sendAmount(String phone, double amount, String description) {
         if (validateFields( phone, amount, description)) {
-
             phoneUserIssuer = SharedPrefHelper.getPhone(context);
-
-           /* System.out.println(phoneUserIssuer);
-            System.out.println(phone);
-            System.out.println(amount);
-            System.out.println(description);
-
-            */
             bdModel.sendAmountDb(phone, amount, description,phoneUserIssuer);
 
-            view.intentTo();
+            //quemar el intent
+            Intent intent = new Intent(context, Voucher.class);
+            intent.putExtra("phoneReceiver", phone);
+            intent.putExtra("phoneIssuer", phoneUserIssuer);
+            intent.putExtra("amount", amount);
+            intent.putExtra("description", description);
+            context.startActivity(intent);
+
 
         } else {
-
-            view.showError("Error al registrar usuario");
-
+            view.showError("Error al enviar dinero");
         }
     }
 
 
-
     public boolean validateFields(String phone, double amount, String description) {
-
         boolean isPhoneValid = validatePhoneField(phone);
         boolean isAmountValid = validateAmountField(amount);
         return isPhoneValid && isAmountValid;

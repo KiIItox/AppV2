@@ -77,9 +77,8 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain,ModelMain.tran
     }
 
     @Override
-    public void insertVoucher(String nameReceiver, String nameEmiter, String phoneReceiber,
-                              String phoneEmiter, String coin, int amount, String description, String date) {
-
+    public int insertVoucher(Voucher voucher) {
+        return voucher.getId();
     }
     @Override
     public void sendAmountDb(String phone, double amount, String description, String phoneUserIssuer) {
@@ -91,7 +90,6 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain,ModelMain.tran
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction();
         double originAmount = getAmountByPhoneUser(phoneIssuer);
-        System.out.println(originAmount);
         if (originAmount < amount) {
             System.out.println("El monto a enviar no puede superar tu saldo");
             db.endTransaction();

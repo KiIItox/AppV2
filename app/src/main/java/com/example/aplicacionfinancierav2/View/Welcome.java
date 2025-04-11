@@ -3,25 +3,15 @@ package com.example.aplicacionfinancierav2.View;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.aplicacionfinancierav2.Interfaces.ModelMain;
 import com.example.aplicacionfinancierav2.Interfaces.PresenterMain;
 import com.example.aplicacionfinancierav2.Interfaces.ViewMain;
-import com.example.aplicacionfinancierav2.Model.ModelImpl;
-import com.example.aplicacionfinancierav2.Model.UserDB;
-import com.example.aplicacionfinancierav2.Presenter.LoginPresenter;
-import com.example.aplicacionfinancierav2.Presenter.WelcomePresenter;
 import com.example.aplicacionfinancierav2.R;
 
 public class Welcome extends AppCompatActivity implements ViewMain {
@@ -74,4 +64,10 @@ public class Welcome extends AppCompatActivity implements ViewMain {
     public void showMoney(double money) {
 
     }
+
+    @Override
+    public void voucherData(String id, String phone, String phoneIssuer, String description, double amount) {
+
+    }
+
 }

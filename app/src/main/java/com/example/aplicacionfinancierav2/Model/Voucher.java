@@ -3,41 +3,29 @@ package com.example.aplicacionfinancierav2.Model;
 public class Voucher {
 
 
-    private String nameReceiver;
-    private String nameEmiter;
+
+    private int id;
     private String phoneReceiber;
     private String phoneEmiter;
-    private String coin;
-    private int amount;
+    private double amount;
     private String description;
     private String date;
-    public Voucher(String nameReceiver, String nameEmiter, String phoneReceiber,
-                   String phoneEmiter, String coin, int amount, String description, String date) {
+    public Voucher(String phoneReceiber,String phoneEmiter,double amount,
+                   String description, String date) {
 
-        this.nameReceiver = nameReceiver;
-        this.nameEmiter = nameEmiter;
         this.phoneReceiber = phoneReceiber;
         this.phoneEmiter = phoneEmiter;
-        this.coin = coin;
         this.amount = amount;
         this.description = description;
         this.date = date;
     }
 
-    public String getNameReceiver() {
-        return nameReceiver;
+    public int getId() {
+        return id;
     }
 
-    public void setNameReceiver(String nameReceiver) {
-        this.nameReceiver = nameReceiver;
-    }
-
-    public String getNameEmiter() {
-        return nameEmiter;
-    }
-
-    public void setNameEmiter(String nameEmiter) {
-        this.nameEmiter = nameEmiter;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPhoneReceiber() {
@@ -56,19 +44,11 @@ public class Voucher {
         this.phoneEmiter = phoneEmiter;
     }
 
-    public String getCoin() {
-        return coin;
-    }
-
-    public void setCoin(String coin) {
-        this.coin = coin;
-    }
-
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 

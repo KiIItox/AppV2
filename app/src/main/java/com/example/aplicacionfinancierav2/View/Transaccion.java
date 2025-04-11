@@ -13,11 +13,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.aplicacionfinancierav2.Interfaces.ViewMain;
-import com.example.aplicacionfinancierav2.Presenter.RegisterPresenter;
 import com.example.aplicacionfinancierav2.Presenter.TransaccionPresenter;
 import com.example.aplicacionfinancierav2.R;
-
-import java.net.Inet4Address;
 
 public class Transaccion extends AppCompatActivity implements ViewMain {
 
@@ -52,6 +49,7 @@ public class Transaccion extends AppCompatActivity implements ViewMain {
         amountDouble = Double.parseDouble(amount);
         description = etDescription.getText().toString();
         presenterActivity.sendAmount(phoneReceiver,amountDouble,description);
+
     }
 
 
@@ -89,4 +87,11 @@ public class Transaccion extends AppCompatActivity implements ViewMain {
     public void showMoney(double money) {
 
     }
+
+    @Override
+    public void voucherData(String id, String phone, String phoneIssuer, String description, double amount) {
+
+    }
+
+
 }

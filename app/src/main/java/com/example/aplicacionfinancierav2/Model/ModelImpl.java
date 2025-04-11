@@ -33,8 +33,8 @@ public class ModelImpl implements ModelMain {
     }
 
     @Override
-    public void insertVoucher(String nameReceiver, String nameEmiter, String phoneReceiber, String phoneEmiter, String coin, int amount, String description, String date) {
-
+    public int insertVoucher(Voucher voucher) {
+    return voucher.getId();
     }
 
     @Override

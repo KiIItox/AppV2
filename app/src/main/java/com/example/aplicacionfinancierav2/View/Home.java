@@ -12,13 +12,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.aplicacionfinancierav2.Interfaces.PresenterMain;
 import com.example.aplicacionfinancierav2.Interfaces.ViewMain;
-import com.example.aplicacionfinancierav2.Model.ModelImpl;
 import com.example.aplicacionfinancierav2.Model.SharedPrefHelper;
 import com.example.aplicacionfinancierav2.Presenter.HomePresenter;
-import com.example.aplicacionfinancierav2.Presenter.LoginPresenter;
-import com.example.aplicacionfinancierav2.Presenter.WelcomePresenter;
 import com.example.aplicacionfinancierav2.R;
 
 public class Home extends AppCompatActivity implements ViewMain {
@@ -38,12 +34,13 @@ public class Home extends AppCompatActivity implements ViewMain {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         tv1 = findViewById(R.id.tvSaldo);
         presenter = new HomePresenter(this, this);
         userPhone = getIntent().getStringExtra("phone");
+
         if(userPhone!=null){
             presenter.saveUserPhone(userPhone);
+
         }
         phone = SharedPrefHelper.getPhone(this);
         presenter.loadMoney(phone);
@@ -62,9 +59,6 @@ public class Home extends AppCompatActivity implements ViewMain {
 
     }
 
-    public String getPhoneHelper(){
-        return phone;
-    }
 
     @Override
     public void showError(String error) {
@@ -84,5 +78,10 @@ public class Home extends AppCompatActivity implements ViewMain {
     @Override
     public void showMoney(double money) {
         tv1.setText("Saldo disponible: $" + money);
+    }
+
+    @Override
+    public void voucherData(String id, String phone, String phoneIssuer, String description, double amount) {
+
     }
 }

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="verdePrincipal">#2E7D32</color> <!-- Verde institucional -->
+    <color name="verdeSuave">#A5D6A7</color>   <!-- Verde claro para bordes -->
+    <color name="fondoClaro">#F9F9F9</color>    <!-- Casi blanco -->
+    <color name="negro">#000000</color>
+    <color name="grisTexto">#666666</color>     <!-- Para subtítulos -->
 </resources>

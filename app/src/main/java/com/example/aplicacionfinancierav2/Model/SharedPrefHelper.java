@@ -9,6 +9,8 @@ public class SharedPrefHelper {
     private static final String PREF_NAME = "users";
     private static final String KEY_PHONE = "phone";
 
+
+    //Obtener telefono
     public static void savePhone(Context context, String phone) {
         SharedPreferences prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();

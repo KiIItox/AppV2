@@ -42,6 +42,7 @@ public class LoginPresenter implements PresenterMain {
                 this.view.intentTo();
 
             } else {
+
                 view.showFieldError("password", "Contraseña incorrecta.");
             }
 
