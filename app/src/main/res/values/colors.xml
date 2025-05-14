@@ -4,5 +4,7 @@
     <color name="verdeSuave">#A5D6A7</color>   <!-- Verde claro para bordes -->
     <color name="fondoClaro">#F9F9F9</color>    <!-- Casi blanco -->
     <color name="negro">#000000</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
     <color name="grisTexto">#666666</color>     <!-- Para subtítulos -->
 </resources>
