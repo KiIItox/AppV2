@@ -199,6 +199,8 @@ public class UserDB extends SQLiteOpenHelper implements ModelMain,ModelMain.tran
         return exists;
     }
 
+    //puto le que lo lea/
+
     // verificar si existe el usuario
 
     public boolean userExistByPhone (String phone){
